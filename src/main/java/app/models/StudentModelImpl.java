@@ -16,7 +16,7 @@ public class StudentModelImpl implements IStudentModel {
     public Student create(Student request) {
         Connection connection = MySqlConfig.openConnection();
 
-        String sqlQuery = "INSERT INTO students(name, lastname, email, state, id_course, id_grade) values(?,?,?,?,?,?);";
+        String sqlQuery = "INSERT INTO students(name, lastname, email, state ) values(?,?,?,?);";
 
         int rowsAffected = 0;
 
@@ -27,8 +27,6 @@ public class StudentModelImpl implements IStudentModel {
             preparedStatement.setString(2, request.getLastname());
             preparedStatement.setString(3, request.getEmail());
             preparedStatement.setObject(4, request.getState());
-            preparedStatement.setInt(5, request.getIdCourse());
-            preparedStatement.setInt(6, request.getIdGrade());
 
             rowsAffected = preparedStatement.executeUpdate();
 
@@ -67,7 +65,7 @@ public class StudentModelImpl implements IStudentModel {
     public List<Student> readAll(int size, int numberPage) {
         Connection connection = MySqlConfig.openConnection();
 
-        String sqlQuery = "SELECT * FROM students WHERE status TRUE;";
+        String sqlQuery = "SELECT * FROM students WHERE state ;";
 
         List<Student> students = new ArrayList<>();
 
@@ -85,8 +83,6 @@ public class StudentModelImpl implements IStudentModel {
                 student.setLastname(resultSet.getString("lastname"));
                 student.setEmail(resultSet.getString("email"));
                 student.setState(resultSet.getBoolean("state"));
-                student.setIdCourse(resultSet.getInt("id_course"));
-                student.setIdGrade(resultSet.getInt("id_grade"));
                 students.add(student);
             }
 
@@ -119,9 +115,7 @@ public class StudentModelImpl implements IStudentModel {
                         resultSet.getString("name"),
                         resultSet.getString("lastname"),
                         resultSet.getString("email"),
-                        resultSet.getBoolean("state"),
-                        resultSet.getInt("id_course"),
-                        resultSet.getInt("id_grade")
+                        resultSet.getBoolean("state")
                 );
 
                 return student;
@@ -158,9 +152,7 @@ public class StudentModelImpl implements IStudentModel {
                         resultSet.getString("name"),
                         resultSet.getString("lastname"),
                         resultSet.getString("email"),
-                        resultSet.getBoolean("state"),
-                        resultSet.getInt("id_course"),
-                        resultSet.getInt("id_grade")
+                        resultSet.getBoolean("state")
                 );
                 return student;
             }
@@ -180,7 +172,7 @@ public class StudentModelImpl implements IStudentModel {
     public Student update(Student request) {
         Connection connection = MySqlConfig.openConnection();
 
-        String sqlQuery = "UPDATE students SET name=?, lastname=?, email=?, state=?, id_course=?, id_grade=? WHERE id=?;";
+        String sqlQuery = "UPDATE students SET name=?, lastname=?, email=?, state=? WHERE id=?;";
 
         int rowsAffected = 0;
 
@@ -191,9 +183,6 @@ public class StudentModelImpl implements IStudentModel {
             preparedStatement.setString(2, request.getLastname());
             preparedStatement.setString(3, request.getEmail());
             preparedStatement.setObject(4, request.getState());
-            preparedStatement.setInt(5, request.getIdCourse());
-            preparedStatement.setInt(6, request.getIdGrade());
-            preparedStatement.setInt(7, request.getId());
 
             rowsAffected = preparedStatement.executeUpdate();
 

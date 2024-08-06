@@ -37,11 +37,7 @@ public class ManageStudents {
                         String email = scanner.nextLine();
                         System.out.println("Enter Student state (true/false)");
                         boolean state = Boolean.parseBoolean(scanner.nextLine());
-                        System.out.println("Enter course ID ");
-                        int idCourse = scanner.nextInt();
-                        System.out.println("Enter grade ID ");
-                        int idGrade = scanner.nextInt();
-                        Student student = new Student(name, lastname, email, state, idCourse, idGrade);
+                        Student student = new Student(name, lastname, email, state);
                         studentController.create(student);
                         System.out.println("Student created successfully.");
                         break;
